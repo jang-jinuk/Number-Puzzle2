@@ -17,7 +17,7 @@ public class Main {
         System.out.printf("turn %d",turn);
 
         int[] puzzleNumber = new int[16];
-        for(int i = 0; i < 15 ; i++) {
+        for(int i = 0; i < 16 ; i++) {
             puzzleNumber[i] = (int) (Math.random() * 16);
             for (int j = 0; j < i; j++) {
                 if (puzzleNumber[i] == puzzleNumber[j]) {
