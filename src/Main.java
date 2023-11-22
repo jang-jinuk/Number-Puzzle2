@@ -3,6 +3,9 @@
 //3. 입력 프롬프트를 구현(입력 유효범위를 1 - 15로 설정, 입력 오류 시 다시 입력받음)
 //4. 정상적으로 입력 시 공백칸 위로 밀어내기(배열 인덱스 값을 확인해 공백칸 배열 인덱스 옆에 위치하는 값이 확인하고 교환)
 //5. 숫자가 올바르게 정렬되면 축하메세지와 함께 게임종료
+//6. 먼저 0-15까지 숫자를 1차원 배열에 랜덤으로 받고(숫자는 겹치지 않게) 그리고 2차원 배열에 순서대로 저장한다.
+//7. 숫자 0은 공백으로 교체하여 출력
+
 
 
 
@@ -12,11 +15,22 @@ public class Main {
 
         int turn = 1;
         System.out.printf("turn %d",turn);
-        int[][] fifteenPuzzle = new int[4][4];
 
-        for(int i = 0; i < 4 ; i++) {
-            for(int j = 0; j < 4; j++) {
-                fifteenPuzzle[i][j] = (int) (Math.random() * 15);
+        int[] puzzleNumber = new int[16];
+        for(int i = 0; i < 15 ; i++) {
+            puzzleNumber[i] = (int) (Math.random() * 16);
+            for (int j = 0; j < i; j++) {
+                if (puzzleNumber[i] == puzzleNumber[j]) {
+                    --i;
+                }
+            }
+        }
+        int[][] fifteenPuzzle = new int[4][4];
+        int count = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                fifteenPuzzle[i][j] = puzzleNumber[count];
+                count++;
             }
         }
     }
