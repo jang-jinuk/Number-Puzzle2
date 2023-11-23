@@ -55,10 +55,6 @@ public class Main {
 
     static int[][] scanNumber(int[][] fifteenPuzzle) {
         int changeNum = 0;
-
-        int empty = 0;
-        int idx_1 = 0, idx_2 = 0;
-        int idx_3 = 0, idx_4 = 0;
         int butten = 1;
 
         Scanner scanner = new Scanner(System.in);
@@ -72,11 +68,7 @@ public class Main {
             }
         } while (changeNum < 1 || changeNum > 15 || butten == 1);
 
-
-        int tmp;
-        tmp = fifteenPuzzle[idx_1][idx_2];
-        fifteenPuzzle[idx_1][idx_2] = fifteenPuzzle[idx_3][idx_4];
-        fifteenPuzzle[idx_3][idx_4] = tmp;
+        fifteenPuzzle = changePuzzle(fifteenPuzzle,changeNum);
 
         return fifteenPuzzle;
     }
@@ -109,5 +101,29 @@ public class Main {
             butten = 0;
         }
         return butten;
+    }
+    static int[][] changePuzzle(int[][] fifteenPuzzle,int changeNum){
+        int empty = 0;
+        int[] emptyIdx = new int[2];
+        int[] changeIdx = new int[2];
+        int idx_1, idx_2, idx_3, idx_4;
+
+        Inspect inspectNum1 = new Inspect(empty,fifteenPuzzle);
+        Inspect inspectNum2 = new Inspect(changeNum,fifteenPuzzle);
+
+        emptyIdx = inspectNum1.scanIdex();
+        changeIdx = inspectNum2.scanIdex();
+
+        idx_1 = emptyIdx[0];
+        idx_2 = emptyIdx[1];
+        idx_3 = changeIdx[0];
+        idx_4 = changeIdx[1];
+
+        int tmp;
+        tmp = fifteenPuzzle[idx_1][idx_2];
+        fifteenPuzzle[idx_1][idx_2] = fifteenPuzzle[idx_3][idx_4];
+        fifteenPuzzle[idx_3][idx_4] = tmp;
+
+        return fifteenPuzzle;
     }
 }
