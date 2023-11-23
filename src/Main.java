@@ -7,14 +7,14 @@
 //7. 숫자 0은 공백으로 교체하여 출력
 
 
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("재미있는 15퍼즐!\n");
 
         int turn = 1;
-        System.out.printf("turn %d",turn);
+        System.out.printf("turn %d\n11",turn);
 
         int[] puzzleNumber = new int[16];
         for(int i = 0; i < 16 ; i++) {
@@ -33,5 +33,20 @@ public class Main {
                 count++;
             }
         }
+        scanNumber();
+    }
+    static int scanNumber(){
+        int changeNum = 0;
+
+        Scanner scanner = new Scanner(System.in);
+        do{
+            System.out.print("숫자 입력 > "); //입력 받은 숫자 유효성 검사
+            changeNum = scanner.nextInt();
+            if(changeNum < 1 || changeNum > 15) {
+                System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
+            }
+        }while(changeNum < 1 || changeNum > 15);
+
+        return changeNum;
     }
 }
