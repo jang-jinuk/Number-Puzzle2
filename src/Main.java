@@ -14,7 +14,7 @@ public class Main {
         System.out.println("재미있는 15퍼즐!\n");
 
         int turn = 1;
-        System.out.printf("turn %d\n11",turn);
+        System.out.printf("turn %d\n",turn);
 
         int[] puzzleNumber = new int[16];
         for(int i = 0; i < 16 ; i++) {
@@ -33,8 +33,19 @@ public class Main {
                 count++;
             }
         }
+        printNumber(fifteenPuzzle);
         scanNumber();
     }
+    static void printNumber(int [][] fifteenPuzzle) {
+
+      for (int i = 0; i < fifteenPuzzle.length; i++) {
+          for (int j = 0; j < fifteenPuzzle[i].length; j++) {
+              System.out.printf("[%d]",fifteenPuzzle[i][j]);
+          }
+          System.out.println();
+      }
+    }
+
     static int scanNumber(){
         int changeNum = 0;
 
@@ -46,7 +57,6 @@ public class Main {
                 System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
             }
         }while(changeNum < 1 || changeNum > 15);
-
         return changeNum;
     }
 }
