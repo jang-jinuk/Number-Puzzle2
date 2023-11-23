@@ -46,12 +46,11 @@ public class Main {
 
     static int[][] scanNumber(int[][] fifteenPuzzle) {
         int changeNum = 0;
-        int changeButton = 1;
+        int changeButton = 0;
 
         Scanner scanner = new Scanner(System.in);
         do {
-
-            System.out.print("숫자 입력 > "); //입력 받은 숫자 유효성 검사
+            System.out.print("숫자 입력 > ");
             changeNum = scanner.nextInt();
             changeButton = inspectNumber(changeNum,fifteenPuzzle);
             if (changeNum < 1 || changeNum > 15 || changeButton == 0) {
@@ -128,15 +127,21 @@ public class Main {
         }
         return changeButton;
     }
-
+    static int [][] rightNumber(int[][] rightAnswer) {
+        int cnt = 1;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                rightAnswer[i][j] = cnt;
+                cnt++;
+            }
+        }
+        rightAnswer[4][4] = 0;
+        return rightAnswer;
+    }
     static void startGame() {
-        int [][] rightAnswer =
-        {
-                {1,2,3,4},
-                {5,6,7,8},
-                {9,10,11,12},
-                {13,14,15,0}
-        };
+        int [][] rightAnswer = new int[4][4];
+        rightAnswer = rightNumber(rightAnswer);
+        
         int[] puzzleNumber = new int[16];
         int[][] fifteenPuzzle = new int[4][4];
         fifteenPuzzle= selectNumber(puzzleNumber,fifteenPuzzle);
