@@ -12,18 +12,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         System.out.println("재미있는 15퍼즐!\n");
-
-        int turn = 1;
-        System.out.printf("turn %d\n", turn);
-
-        int[] puzzleNumber = new int[16];
-        int[][] fifteenPuzzle = new int[4][4];
-
-        fifteenPuzzle= selectNumber(puzzleNumber,fifteenPuzzle);
-        printNumber(fifteenPuzzle);
-        printNumber(scanNumber(fifteenPuzzle));
+        startGame();
     }
-    static int[][] selectNumber(int[] puzzleNumber, int[][] fifteenPuzzle){
+    static int[][] selectNumber(int[] puzzleNumber, int[][] fifteenPuzzle) {
         for (int i = 0; i < 16; i++) {
             puzzleNumber[i] = (int) (Math.random() * 16);
             for (int j = 0; j < i; j++) {
@@ -88,7 +79,7 @@ public class Main {
         changeButton = locationNumber(idx_1,idx_2,idx_3,idx_4);
         return changeButton;
     }
-    static int[][] changePuzzle(int[][] fifteenPuzzle,int changeNum){
+    static int[][] changePuzzle(int[][] fifteenPuzzle,int changeNum) {
         int idx_1, idx_2, idx_3, idx_4;
         int[] indexNumber = new int[4];
         indexNumber = indexBox(changeNum, fifteenPuzzle);
@@ -105,7 +96,7 @@ public class Main {
 
         return fifteenPuzzle;
     }
-    static int[] indexBox(int changeNum, int[][] fifteenPuzzle){
+    static int[] indexBox(int changeNum, int[][] fifteenPuzzle) {
         int empty = 0;
         int[] emptyIdx = new int[2];
         int[] changeIdx = new int[2];
@@ -124,7 +115,7 @@ public class Main {
 
         return idxBox;
     }
-    static int locationNumber(int idx_1,int idx_2,int idx_3,int idx_4){
+    static int locationNumber(int idx_1,int idx_2,int idx_3,int idx_4) {
         int changeButton = 0;
         if (idx_1 == idx_3 && (idx_2 - 1) == idx_4) {
             changeButton = 1;
@@ -136,5 +127,32 @@ public class Main {
             changeButton = 1;
         }
         return changeButton;
+    }
+
+    static void startGame() {
+        int [][] rightAnswer =
+        {
+                {1,2,3,4},
+                {5,6,7,8},
+                {9,10,11,12},
+                {13,14,15,0}
+        };
+        int[] puzzleNumber = new int[16];
+        int[][] fifteenPuzzle = new int[4][4];
+        fifteenPuzzle= selectNumber(puzzleNumber,fifteenPuzzle);
+        int turn = 1;
+        while(true) {
+            System.out.printf("turn %d\n", turn);
+            turn++;
+
+            printNumber(fifteenPuzzle);
+            fifteenPuzzle = scanNumber(fifteenPuzzle);
+            System.out.println();
+
+            if (fifteenPuzzle.equals(rightAnswer)) {
+                System.out.printf("축하합니다! %d턴만에 퍼즐을 완성했습니다!", turn);
+                break;
+            }
+        }
     }
 }
