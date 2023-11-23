@@ -34,7 +34,7 @@ public class Main {
             }
         }
         printNumber(fifteenPuzzle);
-        scanNumber();
+        printNumber(scanNumber(fifteenPuzzle));
     }
     static void printNumber(int [][] fifteenPuzzle) {
 
@@ -46,7 +46,7 @@ public class Main {
       }
     }
 
-    static int scanNumber(){
+    static int[][] scanNumber(int [][]fifteenPuzzle){
         int changeNum = 0;
 
         Scanner scanner = new Scanner(System.in);
@@ -57,6 +57,34 @@ public class Main {
                 System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
             }
         }while(changeNum < 1 || changeNum > 15);
-        return changeNum;
+
+        int empty = 0;
+
+        int idx_1 = 0, idx_2 = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++){
+                if (empty == fifteenPuzzle[i][j]){
+                    idx_1 = i;
+                    idx_2 = j;
+                }
+            }
+        }
+        int idx_3 =0, idx_4 =0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (changeNum == fifteenPuzzle[i][j]) {
+                    idx_3 = i;
+                    idx_4 = j;
+                }
+            }
+        }
+
+        int tmp;
+        tmp = fifteenPuzzle[idx_1][idx_2];
+        fifteenPuzzle[idx_1][idx_2] = fifteenPuzzle[idx_3][idx_4];
+        fifteenPuzzle[idx_3][idx_4] = tmp;
+
+        return fifteenPuzzle;
     }
+
 }
