@@ -17,6 +17,13 @@ public class Main {
         System.out.printf("turn %d\n", turn);
 
         int[] puzzleNumber = new int[16];
+        int[][] fifteenPuzzle = new int[4][4];
+
+        fifteenPuzzle= selectNumber(puzzleNumber,fifteenPuzzle);
+        printNumber(fifteenPuzzle);
+        printNumber(scanNumber(fifteenPuzzle));
+    }
+    static int[][] selectNumber(int[] puzzleNumber, int[][] fifteenPuzzle){
         for (int i = 0; i < 16; i++) {
             puzzleNumber[i] = (int) (Math.random() * 16);
             for (int j = 0; j < i; j++) {
@@ -25,7 +32,6 @@ public class Main {
                 }
             }
         }
-        int[][] fifteenPuzzle = new int[4][4];
         int count = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -33,8 +39,7 @@ public class Main {
                 count++;
             }
         }
-        printNumber(fifteenPuzzle);
-        printNumber(scanNumber(fifteenPuzzle));
+        return fifteenPuzzle;
     }
 
     static void printNumber(int[][] fifteenPuzzle) {
@@ -45,6 +50,7 @@ public class Main {
             }
             System.out.println();
         }
+
     }
 
     static int[][] scanNumber(int[][] fifteenPuzzle) {
