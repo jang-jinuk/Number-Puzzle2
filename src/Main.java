@@ -55,18 +55,18 @@ public class Main {
 
     static int[][] scanNumber(int[][] fifteenPuzzle) {
         int changeNum = 0;
-        int butten = 1;
+        int changeButton = 1;
 
         Scanner scanner = new Scanner(System.in);
         do {
 
             System.out.print("숫자 입력 > "); //입력 받은 숫자 유효성 검사
             changeNum = scanner.nextInt();
-            butten = inspectNumber(changeNum,fifteenPuzzle);
-            if (changeNum < 1 || changeNum > 15 || butten == 1) {
+            changeButton = inspectNumber(changeNum,fifteenPuzzle);
+            if (changeNum < 1 || changeNum > 15 || changeButton == 0) {
                 System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
             }
-        } while (changeNum < 1 || changeNum > 15 || butten == 1);
+        } while (changeNum < 1 || changeNum > 15 || changeButton == 0);
 
         fifteenPuzzle = changePuzzle(fifteenPuzzle,changeNum);
 
@@ -74,50 +74,29 @@ public class Main {
     }
 
     static int inspectNumber(int changeNum, int[][] fifteenPuzzle) {
-        int empty = 0;
-        int[] emptyIdx = new int[2];
-        int[] changeIdx = new int[2];
+
         int idx_1, idx_2, idx_3, idx_4;
+        int[] indexNumber = new int[4];
+        indexNumber = indexBox(changeNum, fifteenPuzzle);
 
-        Inspect inspectNum1 = new Inspect(empty,fifteenPuzzle);
-        Inspect inspectNum2 = new Inspect(changeNum,fifteenPuzzle);
+        idx_1 = indexNumber[0];
+        idx_2 = indexNumber[1];
+        idx_3 = indexNumber[2];
+        idx_4 = indexNumber[3];
 
-        emptyIdx = inspectNum1.scanIdex();
-        changeIdx = inspectNum2.scanIdex();
-
-        idx_1 = emptyIdx[0];
-        idx_2 = emptyIdx[1];
-        idx_3 = changeIdx[0];
-        idx_4 = changeIdx[1];
-
-        int butten = 1;
-        if (idx_1 == idx_3 && (idx_2 - 1) == idx_4) {
-            butten = 0;
-        } else if (idx_1 == idx_3 && (idx_2 + 1) == idx_4) {
-            butten = 0;
-        } else if (idx_2 == idx_4 && (idx_1 - 1) == idx_3) {
-            butten = 0;
-        } else if (idx_2 == idx_4 && (idx_1 + 1) == idx_3) {
-            butten = 0;
-        }
-        return butten;
+        int changeButton;
+        changeButton = locationNumber(idx_1,idx_2,idx_3,idx_4);
+        return changeButton;
     }
     static int[][] changePuzzle(int[][] fifteenPuzzle,int changeNum){
-        int empty = 0;
-        int[] emptyIdx = new int[2];
-        int[] changeIdx = new int[2];
         int idx_1, idx_2, idx_3, idx_4;
+        int[] indexNumber = new int[4];
+        indexNumber = indexBox(changeNum, fifteenPuzzle);
 
-        Inspect inspectNum1 = new Inspect(empty,fifteenPuzzle);
-        Inspect inspectNum2 = new Inspect(changeNum,fifteenPuzzle);
-
-        emptyIdx = inspectNum1.scanIdex();
-        changeIdx = inspectNum2.scanIdex();
-
-        idx_1 = emptyIdx[0];
-        idx_2 = emptyIdx[1];
-        idx_3 = changeIdx[0];
-        idx_4 = changeIdx[1];
+        idx_1 = indexNumber[0];
+        idx_2 = indexNumber[1];
+        idx_3 = indexNumber[2];
+        idx_4 = indexNumber[3];
 
         int tmp;
         tmp = fifteenPuzzle[idx_1][idx_2];
@@ -125,5 +104,37 @@ public class Main {
         fifteenPuzzle[idx_3][idx_4] = tmp;
 
         return fifteenPuzzle;
+    }
+    static int[] indexBox(int changeNum, int[][] fifteenPuzzle){
+        int empty = 0;
+        int[] emptyIdx = new int[2];
+        int[] changeIdx = new int[2];
+        int[] idxBox = new int[4];
+
+        Inspect inspectNum1 = new Inspect(empty,fifteenPuzzle);
+        Inspect inspectNum2 = new Inspect(changeNum,fifteenPuzzle);
+
+        emptyIdx = inspectNum1.scanIdex();
+        changeIdx = inspectNum2.scanIdex();
+
+        idxBox[0] = emptyIdx[0];
+        idxBox[1] = emptyIdx[1];
+        idxBox[2] = changeIdx[0];
+        idxBox[3] = changeIdx[1];
+
+        return idxBox;
+    }
+    static int locationNumber(int idx_1,int idx_2,int idx_3,int idx_4){
+        int changeButton = 0;
+        if (idx_1 == idx_3 && (idx_2 - 1) == idx_4) {
+            changeButton = 1;
+        } else if (idx_1 == idx_3 && (idx_2 + 1) == idx_4) {
+            changeButton = 1;
+        } else if (idx_2 == idx_4 && (idx_1 - 1) == idx_3) {
+            changeButton = 1;
+        } else if (idx_2 == idx_4 && (idx_1 + 1) == idx_3) {
+            changeButton = 1;
+        }
+        return changeButton;
     }
 }
