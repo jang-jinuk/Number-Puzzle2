@@ -14,10 +14,10 @@ public class Main {
         System.out.println("재미있는 15퍼즐!\n");
 
         int turn = 1;
-        System.out.printf("turn %d\n",turn);
+        System.out.printf("turn %d\n", turn);
 
         int[] puzzleNumber = new int[16];
-        for(int i = 0; i < 16 ; i++) {
+        for (int i = 0; i < 16; i++) {
             puzzleNumber[i] = (int) (Math.random() * 16);
             for (int j = 0; j < i; j++) {
                 if (puzzleNumber[i] == puzzleNumber[j]) {
@@ -36,48 +36,36 @@ public class Main {
         printNumber(fifteenPuzzle);
         printNumber(scanNumber(fifteenPuzzle));
     }
-    static void printNumber(int [][] fifteenPuzzle) {
 
-      for (int i = 0; i < fifteenPuzzle.length; i++) {
-          for (int j = 0; j < fifteenPuzzle[i].length; j++) {
-              System.out.printf("[%d]",fifteenPuzzle[i][j]);
-          }
-          System.out.println();
-      }
+    static void printNumber(int[][] fifteenPuzzle) {
+
+        for (int i = 0; i < fifteenPuzzle.length; i++) {
+            for (int j = 0; j < fifteenPuzzle[i].length; j++) {
+                System.out.printf("[%2d]", fifteenPuzzle[i][j]);
+            }
+            System.out.println();
+        }
     }
 
-    static int[][] scanNumber(int [][]fifteenPuzzle){
+    static int[][] scanNumber(int[][] fifteenPuzzle) {
         int changeNum = 0;
 
+        int empty = 0;
+        int idx_1 = 0, idx_2 = 0;
+        int idx_3 = 0, idx_4 = 0;
+        int butten = 1;
+
         Scanner scanner = new Scanner(System.in);
-        do{
+        do {
+
             System.out.print("숫자 입력 > "); //입력 받은 숫자 유효성 검사
             changeNum = scanner.nextInt();
-            if(changeNum < 1 || changeNum > 15) {
+            butten = inspectNumber(changeNum,fifteenPuzzle);
+            if (changeNum < 1 || changeNum > 15 || butten == 1) {
                 System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n");
             }
-        }while(changeNum < 1 || changeNum > 15);
+        } while (changeNum < 1 || changeNum > 15 || butten == 1);
 
-        int empty = 0;
-
-        int idx_1 = 0, idx_2 = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++){
-                if (empty == fifteenPuzzle[i][j]){
-                    idx_1 = i;
-                    idx_2 = j;
-                }
-            }
-        }
-        int idx_3 =0, idx_4 =0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (changeNum == fifteenPuzzle[i][j]) {
-                    idx_3 = i;
-                    idx_4 = j;
-                }
-            }
-        }
 
         int tmp;
         tmp = fifteenPuzzle[idx_1][idx_2];
@@ -87,4 +75,33 @@ public class Main {
         return fifteenPuzzle;
     }
 
+    static int inspectNumber(int changeNum, int[][] fifteenPuzzle) {
+        int empty = 0;
+        int[] emptyIdx = new int[2];
+        int[] changeIdx = new int[2];
+        int idx_1, idx_2, idx_3, idx_4;
+
+        Inspect inspectNum1 = new Inspect(empty,fifteenPuzzle);
+        Inspect inspectNum2 = new Inspect(changeNum,fifteenPuzzle);
+
+        emptyIdx = inspectNum1.scanIdex();
+        changeIdx = inspectNum2.scanIdex();
+
+        idx_1 = emptyIdx[0];
+        idx_2 = emptyIdx[1];
+        idx_3 = changeIdx[0];
+        idx_4 = changeIdx[1];
+
+        int butten = 1;
+        if (idx_1 == idx_3 && (idx_2 - 1) == idx_4) {
+            butten = 0;
+        } else if (idx_1 == idx_3 && (idx_2 + 1) == idx_4) {
+            butten = 0;
+        } else if (idx_2 == idx_4 && (idx_1 - 1) == idx_3) {
+            butten = 0;
+        } else if (idx_2 == idx_4 && (idx_1 + 1) == idx_3) {
+            butten = 0;
+        }
+        return butten;
+    }
 }
