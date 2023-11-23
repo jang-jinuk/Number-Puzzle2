@@ -37,12 +37,18 @@ public class Main {
 
         for (int i = 0; i < fifteenPuzzle.length; i++) {
             for (int j = 0; j < fifteenPuzzle[i].length; j++) {
-                System.out.printf("[%2d]", fifteenPuzzle[i][j]);
+                if (fifteenPuzzle[i][j] == 0) {
+                    System.out.print("[  ]");
+                }
+                else {
+                    System.out.printf("[%2d]", fifteenPuzzle[i][j]);
+                }
             }
             System.out.println();
         }
 
     }
+
 
     static int[][] scanNumber(int[][] fifteenPuzzle) {
         int changeNum = 0;
@@ -135,17 +141,18 @@ public class Main {
                 cnt++;
             }
         }
-        rightAnswer[4][4] = 0;
+        rightAnswer[3][3] = 0;
         return rightAnswer;
     }
     static void startGame() {
         int [][] rightAnswer = new int[4][4];
         rightAnswer = rightNumber(rightAnswer);
-        
+
         int[] puzzleNumber = new int[16];
         int[][] fifteenPuzzle = new int[4][4];
         fifteenPuzzle= selectNumber(puzzleNumber,fifteenPuzzle);
         int turn = 1;
+
         while(true) {
             System.out.printf("turn %d\n", turn);
             turn++;
