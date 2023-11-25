@@ -107,11 +107,11 @@ public class Main {
         int[] changeIdx = new int[2];
         int[] idxBox = new int[4];
 
-        Inspect inspectNum1 = new Inspect(empty,fifteenPuzzle);
-        Inspect inspectNum2 = new Inspect(changeNum,fifteenPuzzle);
+        InputInvalidator inspectNum1 = new InputInvalidator(empty,fifteenPuzzle);
+        InputInvalidator inspectNum2 = new InputInvalidator(changeNum,fifteenPuzzle);
 
-        emptyIdx = inspectNum1.scanIdex();
-        changeIdx = inspectNum2.scanIdex();
+        emptyIdx = inspectNum1.scanIndex();
+        changeIdx = inspectNum2.scanIndex();
 
         idxBox[0] = emptyIdx[0];
         idxBox[1] = emptyIdx[1];
