@@ -1,14 +1,15 @@
-public class InputInValidator {
+public class InputIndexValidator {
+
     public int number;
     public int[][] fifteenPuzzle;
-    public int idx_1, idx_2;
+    public int index_1, index_2;
     public int[] indexNumber = new int[2];
-    
-    InputInValidator(int number, int[][]fifteenPuzzle) {
+
+    InputIndexValidator(int number, int[][]fifteenPuzzle) {
         this.number = number;
         this.fifteenPuzzle = fifteenPuzzle;
-        this.idx_1 = idx_1;
-        this.idx_2 = idx_2;
+        this.index_1 = index_1;
+        this.index_2 = index_2;
         this.indexNumber = indexNumber;
     }
     int[] scanIndex() {
